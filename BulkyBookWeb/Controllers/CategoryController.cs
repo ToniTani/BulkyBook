@@ -1,14 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BulkyBookWeb.Data;
+using BulkyBookWeb.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulkyBookWeb.Controllers
 {
     public class CategoryController : Controller
     {
-        // GET: CategoryController
-        public ActionResult Index()
+        private readonly ApplicationDbContext _db;
+
+        public CategoryController(ApplicationDbContext db)
         {
-            return View();
+            _db = db;
+        }
+
+        public IActionResult Index()
+        {
+            IEnumerable<Category> objCategoryList = _db.Categories;
+            return View(objCategoryList);
         }
 
         // GET: CategoryController/Details/5
